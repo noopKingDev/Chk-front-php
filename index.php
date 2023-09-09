@@ -173,14 +173,27 @@ txt += value + '\n';
       $('.btn-play').attr('disabled', true);
       $('.btn-stop').attr('disabled', false);
 
-      async function requestApiSync (data) {
-     return new Promise((resolve) => {
-        var callBack = $.ajax({
-          url: 'api.php?cc=' + data,
-          url: 'https://contentsolidsorting.noopdev.repl.co/api.php?cc=' + data,
+       function requestApiSync (data) {
+        
+          
+        
+      }
+    //  async function checkerCard() {
+  //     for (let i in line) {
+//         
+//       const data = line[i]
+//      await requestApiSync(data)
+//       }
+    //  }
+    line.forEach((data) => {
+      
+     var callBack = $.ajax({
+          url: '/api.php?lista=' + data,
+          
           success: function(retorno) {
             
-            if (retorno.indexOf("Aprovada") >= 0) {
+            
+            if (retorno.indexOf("APROVADA") >= 0) {
 				$('#saldoCount').html($('#saldoCount').html() -1)
               Swal.fire({
                 title: 'LIVE CHEGANDO, SENHORES!', icon: 'success', showConfirmButton: false, toast: true, position: 'top-end', timer: 3000
@@ -207,20 +220,11 @@ txt += value + '\n';
               $('.btn-play').attr('disabled', false);
               $('.btn-stop').attr('disabled', true);
             }
-            resolve()
+            
           }
         });
-          
-        });
-      }
-      async function checkerCard() {
-      for (let i in line) {
-        
-      const data = line[i]
-     await requestApiSync(data)
-      }
-      }
-      checkerCard()
+    })
+      
         $('.btn-stop').click(function() {
           Swal.fire({
             title: 'Teste Parado!', icon: 'warning', showConfirmButton: false, toast: true, position: 'top-end', timer: 3000
